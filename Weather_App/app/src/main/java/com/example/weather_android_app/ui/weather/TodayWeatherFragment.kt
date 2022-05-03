@@ -88,6 +88,9 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather) {
 
                         val weatherIcon = weatherData.current.weatherInfo[0].icon
                         val weatherDescription = weatherData.current.weatherInfo[0].description
+//                        val weatherTemp =
+//                            round(weatherData.current.temperature.temperature).toInt()
+
                         val weatherTemperature =
                             round(weatherData.current.temperature.temperature).toInt().toString()
                         val weatherWindSpeed =
@@ -105,7 +108,7 @@ class TodayWeatherFragment : Fragment(R.layout.fragment_today_weather) {
                             weather_wind_speed.text = weatherWindSpeed
                         }
 
-                        //Remove the first item - Current Day Weather
+                        //I use this to remove the first item - Current Day Weather
                         val sevenDayForecast = weatherData.daily.subList(1, 8)
                         weatherAdapter.submitList(sevenDayForecast)
 

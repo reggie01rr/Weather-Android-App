@@ -1,12 +1,14 @@
 package com.example.weather_android_app.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
+import com.example.weather_android_app.R
 import com.example.weather_android_app.data.model.CurrentWeather
 import com.example.weather_android_app.databinding.SingleWeatherDayItemBinding
 import com.example.weather_android_app.util.Constants
@@ -15,10 +17,14 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.math.round
 
+
+
 class WeekWeatherAdapter @Inject constructor(
     val glide: RequestManager
 ): ListAdapter<CurrentWeather, WeekWeatherAdapter.WeekWeatherViewHolder>(Diffcallback())
 {
+    private lateinit var context: Context
+
     class Diffcallback: DiffUtil.ItemCallback<CurrentWeather>() {
         override fun areItemsTheSame(oldItem: CurrentWeather, newItem: CurrentWeather) = oldItem.datetime == newItem.datetime
         override fun areContentsTheSame(oldItem: CurrentWeather, newItem: CurrentWeather) = oldItem == newItem
@@ -30,6 +36,14 @@ class WeekWeatherAdapter @Inject constructor(
             binding.apply{
                 val dateFormatter = SimpleDateFormat("EE", Locale.getDefault())
                 val date = Date(currentWeather.datetime * 1000)
+
+//                if(weatherTemperature.equals("10")||weatherTemperature.equals("12")||weatherTemperature.equals("13")) {
+//                    root.setBackgroundColor(context.resources.getColor(R.color.skyBlue))
+//                    //context.resources.getColor(R.color.skyBlue)
+//                }else{
+//                    root.setBackgroundColor(context.resources.getColor(R.color.purple_200))
+//                }
+
 
                 val formatted = dateFormatter.format(date).subSequence(0,3)
                 val temperature = "${round(currentWeather.temperature.temperature).toInt().toString()}°"
@@ -43,11 +57,15 @@ class WeekWeatherAdapter @Inject constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeekWeatherViewHolder {
         val binding = SingleWeatherDayItemBinding.inflate(LayoutInflater.from(parent.context), null, false)
+        context = parent.context
         return WeekWeatherViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: WeekWeatherViewHolder, position: Int) {
         val currentWeather = getItem(position)
         holder.bind(currentWeather)
+
+
     }
 }
+

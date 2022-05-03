@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+
+
         supportActionBar?.elevation = 0F
 
         val navHostFragment =
@@ -30,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+
+
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
